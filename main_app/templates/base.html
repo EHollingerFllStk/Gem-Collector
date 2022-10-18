@@ -22,15 +22,17 @@
             </li>
           </ul>
           <ul class="right">
-            <li><a href="/about">About</a></li>
-            <li><a href="/gems">View All My gems</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+            <!-- new link below -->
+            <li><a href="{% url 'gems_create' %}">Add a Gem</a></li>
+            <li><a href="{% url 'index' %}">View All My Gems</a></li></a></li>
           </ul>
         </div>
       </nav>
     </header>
     <main class="container">{% block content %} {% endblock %}</main>
     <footer class="page-footer">
-      <div class="right">All Rights Reserved, © 2019 Cat Collector</div>
+      <div class="right">All Rights Reserved, © 2022 Gem Collector</div>
     </footer>
   </body>
 </html>

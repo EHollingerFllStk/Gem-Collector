@@ -1,4 +1,3 @@
-
 {% extends 'base.html' %} {% block content %}
 
 <h1>Gem Details</h1>
@@ -9,6 +8,10 @@
     <p>Color: {{ gem.color }}</p>
     <p>Description: {{ gem.description }}</p>
     <p>Uses: {{ gem.uses }}</p>
+  </div>
+  <div class="card-action">
+    <a href="{% url 'gems_update' gem.id %}">Edit</a>
+    <a href="{% url 'gems_delete' gem.id %}">Delete</a>
   </div>
 </div>
 
