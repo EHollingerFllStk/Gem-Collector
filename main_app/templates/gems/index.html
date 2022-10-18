@@ -1,0 +1,17 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>Gem Collector List</h1>
+
+{% for gem in gems %}
+<div class="card">
+    <a href="/gems/{{gem.id}}">
+  <div class="card-content">
+    <span class="card-title">{{ gem.name }}</span>
+    <p>Colors: {{ gem.color }}</p>
+    <p>Description: {{ gem.description }}</p>
+    <p>Uses: {{ gem.uses }}</p>
+  </div>
+</a>
+</div>
+{% endfor %} {% endblock %}
+
