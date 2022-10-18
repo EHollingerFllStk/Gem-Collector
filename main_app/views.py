@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Gem
+from .forms import CleaningForm
 
 # Create your views here.
 
@@ -17,7 +18,9 @@ def gems_index(request):
 
 def gem_detail(request, gem_id):
   gem = Gem.objects.get(id=gem_id)
-  return render(request, 'gems/detail.html', { 'gem': gem})
+  cleaning_form = CleaningForm()
+  return render(request, 'gems/detail.html', {  'gem': gem, 'cleaning_form': cleaning_form
+  })
 
 class GemCreate(CreateView):
   model = Gem
