@@ -24,14 +24,14 @@
     </form>
     <br />
     {% if gem.clean_for_today %}
-  <div class="card-panel teal-text center-align">
-    {{gem.name}} has been cleaned for today
-  </div>
-  {% else %}
-  <div class="card-panel red-text center-align">
-    {{gem.name}} might be dirty
-  </div>
-  {% endif %}
+    <div class="card-panel teal-text center-align">
+      {{gem.name}} has been cleaned for today
+    </div>
+    {% else %}
+    <div class="card-panel red-text center-align">
+      {{gem.name}} might be dirty
+    </div>
+    {% endif %}
     <table class="striped">
       <thead>
         <tr>
@@ -58,7 +58,7 @@
     setDefaultDate: true,
     autoClose: true,
   });
-  var selectEl = document.getElementById('id_cleaning');
+  var selectEl = document.getElementById("id_cleaning");
   M.FormSelect.init(selectEl);
-  </script>
+</script>
 {% endblock %}
