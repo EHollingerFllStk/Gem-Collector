@@ -18,10 +18,20 @@
     </div>
   </div>
   <div class="col s6">
-    <form method="post">
+    <form action="{% url 'add_cleaning' gem.id %}" method="post">
       {% csrf_token %} {{ cleaning_form.as_p }}
       <input type="submit" class="btn green" value="Add Feeding" />
     </form>
+    <br />
+    {% if gem.clean_for_today %}
+  <div class="card-panel teal-text center-align">
+    {{gem.name}} has been cleaned for today
+  </div>
+  {% else %}
+  <div class="card-panel red-text center-align">
+    {{gem.name}} might be dirty
+  </div>
+  {% endif %}
     <table class="striped">
       <thead>
         <tr>
@@ -41,12 +51,14 @@
   </div>
 </div>
 <script>
- var dateEl = document.getElementById('id_date');
+  var dateEl = document.getElementById("id_date");
   M.Datepicker.init(dateEl, {
-    format: 'yyyy-mm-dd',
+    format: "yyyy-mm-dd",
     defaultDate: new Date(),
     setDefaultDate: true,
-    autoClose: true
+    autoClose: true,
   });
-</script>
+  var selectEl = document.getElementById('id_cleaning');
+  M.FormSelect.init(selectEl);
+  </script>
 {% endblock %}

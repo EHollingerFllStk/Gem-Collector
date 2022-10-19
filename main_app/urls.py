@@ -9,5 +9,6 @@ urlpatterns = [
     path('gems/create/', views.GemCreate.as_view(), name='gems_create'),
     path('gems/<int:pk>/update/', views.GemUpdate.as_view(), name='gems_update'),
     path('gems/<int:pk>/delete/', views.GemDelete.as_view(), name='gems_delete'),
+    path('gems/<int:gem_id>/add_cleaning/', views.add_cleaning, name='add_cleaning'),
 ]
 

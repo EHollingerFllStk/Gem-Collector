@@ -1,6 +1,8 @@
 from unittest.util import _MAX_LENGTH
 from django.db import models
 from django.urls import reverse
+from datetime import date
+
 
 QUARTER = (
     ('W', 'Wet Cloth'),
@@ -23,6 +25,9 @@ class Gem(models.Model):
     def get_absolute_url(self):
         return reverse('detail', kwargs={'gem_id': self.id})
     
+    def clean_for_today(self):
+        return self.cleaning_set.filter(date=date.today()).count()>= 1
+
 class Cleaning(models.Model):
     date = models.DateField('cleaning date')
     cleaning = models.CharField(
@@ -35,3 +40,9 @@ class Cleaning(models.Model):
     
     def __str__(self):
         return f"{self.get_cleaning_display()} on {self.date}"
+
+    class Meta:
+        ordering = ['-date']
+
+    
+

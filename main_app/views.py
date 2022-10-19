@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Gem
@@ -36,6 +36,16 @@ class GemUpdate(UpdateView):
 class GemDelete(DeleteView):
   model = Gem
   success_url = '/gems/'
+
+def add_cleaning(request, gem_id):
+  form = CleaningForm(request.POST)
+  if form.is_valid():
+    new_cleaning = form.save(commit=False)
+    new_cleaning.gem_id = gem_id
+    new_cleaning.save()
+    return redirect('detail', gem_id=gem_id)
+
+
 
 # class Gem:
 #     def __init__(self, name, color, description, uses, amount):
