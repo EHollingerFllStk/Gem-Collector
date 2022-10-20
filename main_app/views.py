@@ -41,12 +41,12 @@ def add_cleaning(request, gem_id):
 
 def assoc_jewelry(request, gem_id, jewelry_id):
   # Note that you can pass a jewelry's id instead of the whole object
-   Gem.objects.get(id=gem_id).jewelrys.add(jewelry_id)
+   Gem.objects.get(id=gem_id).jewelry.add(jewelry_id)
    return redirect('detail', gem_id=gem_id)
 
 class GemCreate(CreateView):
   model = Gem
-  fields = ['name', 'color', 'description''uses'] 
+  fields = ['name', 'color', 'description','uses'] 
   success_url = '/gems/'
 
 class GemUpdate(UpdateView):
