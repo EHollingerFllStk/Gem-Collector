@@ -1,8 +1,11 @@
+from pyexpat import model
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Gem
+from .models import Gem, Jewelry
 from .forms import CleaningForm
+from django.views.generic import ListView
+from django.views.generic.detail import DetailView
 
 # Create your views here.
 
@@ -19,14 +22,32 @@ def gems_index(request):
 def gem_detail(request, gem_id):
   gem = Gem.objects.get(id=gem_id)
   cleaning_form = CleaningForm()
-  return render(request, 'gems/detail.html', {  'gem': gem, 'cleaning_form': cleaning_form
+  
+  jewelry_gem_doesnt_have = Jewelry.objects.exclude(id__in = gem.jewelry.all().values_list('id'))
+    
+  return render(request, 'gems/detail.html', {
+    'gem': gem, 
+    'cleaning_form': cleaning_form,
+    'jewelry': jewelry_gem_doesnt_have,
   })
+  
+def add_cleaning(request, gem_id):
+  form = CleaningForm(request.POST)
+  if form.is_valid():
+    new_cleaning = form.save(commit=False)
+    new_cleaning.gem_id = gem_id
+    new_cleaning.save()
+    return redirect('detail', gem_id=gem_id)
+
+def assoc_jewelry(request, gem_id, jewelry_id):
+  # Note that you can pass a jewelry's id instead of the whole object
+   Gem.objects.get(id=gem_id).jewelrys.add(jewelry_id)
+   return redirect('detail', gem_id=gem_id)
 
 class GemCreate(CreateView):
   model = Gem
-  fields = '__all__'
+  fields = ['name', 'color', 'description''uses'] 
   success_url = '/gems/'
-
 
 class GemUpdate(UpdateView):
   model = Gem
@@ -37,13 +58,26 @@ class GemDelete(DeleteView):
   model = Gem
   success_url = '/gems/'
 
-def add_cleaning(request, gem_id):
-  form = CleaningForm(request.POST)
-  if form.is_valid():
-    new_cleaning = form.save(commit=False)
-    new_cleaning.gem_id = gem_id
-    new_cleaning.save()
-    return redirect('detail', gem_id=gem_id)
+class JewelryCreate(CreateView):
+    model = Jewelry
+    fields = ('name', 'setting')
+
+class JewelryUpdate(UpdateView):
+    model = Jewelry
+    fields = ('name', 'setting')
+
+class JewelryDelete(DeleteView):
+    model = Jewelry
+    success_url = '/jewelry/'
+
+class JewelryDetail(DetailView):
+    model = Jewelry
+    template_name = 'jewelry/detail.html'
+
+class JewelryList(ListView):
+    model = Jewelry
+    template_name = 'jewelry/index.html'
+
 
 
 

@@ -11,13 +11,22 @@ QUARTER = (
     ('F', 'Feather duster')
 )
 
+class Jewelry(models.Model):
+    name = models.CharField(max_length=50)
+    setting = models.CharField(max_length=50)
+
+    def get_absolute_url(self):
+        return reverse('jewelry_detail', kwargs={'pk': self.id})
+    def __str__(self):
+        return self.name
+
 # Create your models here.
 class Gem(models.Model):
     name = models.CharField(max_length=100)
     color = models.CharField(max_length=100)
     description = models.TextField(max_length=250)
     uses = models.CharField(max_length=100)
-
+    jewelry = models.ManyToManyField(Jewelry)
 
     def __str__(self):
         return self.name

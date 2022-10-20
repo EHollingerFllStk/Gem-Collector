@@ -20,7 +20,7 @@
   <div class="col s6">
     <form action="{% url 'add_cleaning' gem.id %}" method="post">
       {% csrf_token %} {{ cleaning_form.as_p }}
-      <input type="submit" class="btn green" value="Add Feeding" />
+      <input type="submit" class="btn green" value="Add Cleaning" />
     </form>
     <br />
     {% if gem.clean_for_today %}
@@ -50,6 +50,53 @@
     </table>
   </div>
 </div>
+
+<hr />
+
+<div class="col s6">
+  <h3>{{ gem.name }}'s Jewelry</h3>
+  {% if gem.jewelry.count %} {% for jewelry in gem.jewelry.all %}
+  <div class="card">
+      <div class="card-content">
+          <span class="card-title">
+              A <span class="{{ jewelry.setting.lower }}-text">
+                  {{ jewelry.setting }}</span> {{ jewelry_create.name }}
+          </span>
+      </div>
+  </div>
+  {% endfor %} {% else %}
+  <h5>No Jewelry 💎</h5>
+  {% endif %}
+</div>
+
+
+<div class="col s6">
+  <h3>Available Jewelry</h3>
+  {% if jewelry.count %}
+  {% for jewelry in jewelry.all %}
+  <div class="card">
+      <div class="card-content">
+          <span class="card-title">
+              A <span class="{{ jewelry.setting }}-text">{{ jewelry.setting }}</span> {{ jewelry.name }}
+          </span>
+      </div>
+      <div class="card-action">
+          <form action="{% url 'assoc_jewelry' gem.id jewelry.id %}" method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn">Add</button>
+          </form>
+      </div>
+  </div>
+  {% endfor %}
+  {% else %}
+  <h5>{{gem.name}} Already Has All Jewelry Settings</h5>
+  {% endif %}
+</div>
+</div>
+
+
+
+
 <script>
   var dateEl = document.getElementById("id_date");
   M.Datepicker.init(dateEl, {

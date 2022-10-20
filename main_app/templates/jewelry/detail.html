@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Jewelry Details</h1>
+
+
+<div class="card">
+    <a href="{% url 'jewelry_detail' jewelry.id %}">
+        <div class="card-content">
+            <span class="card-title">A <span class="{{ jewelry.setting.lower }}-text">{{ jewelry.setting }}</span> {{ jewelry.name }}</span>
+        </div>
+        <div class="card-action">
+            <a href="{% url 'jewelry_update' jewelry.id %}">Edit</a>
+            <a href="{% url 'jewelry_delete' jewelry.id %}">Delete</a>
+        </div>
+    </a>
+</div>
+
+{% endblock %}
