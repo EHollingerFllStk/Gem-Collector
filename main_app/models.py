@@ -35,7 +35,7 @@ class Gem(models.Model):
         return reverse('detail', kwargs={'gem_id': self.id})
     
     def clean_for_today(self):
-        return self.cleaning_set.filter(date=date.today()).count()>= 1
+        return self.cleaning_set.filter(date=date.today()).count()>= len(QUARTER)
 
 class Cleaning(models.Model):
     date = models.DateField('cleaning date')

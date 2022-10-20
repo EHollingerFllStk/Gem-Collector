@@ -23,7 +23,7 @@
       <input type="submit" class="btn green" value="Add Cleaning" />
     </form>
     <br />
-    {% if gem.clean_for_today %}
+    <!-- {% if gem.clean_for_today %}
     <div class="card-panel teal-text center-align">
       {{gem.name}} has been cleaned for today
     </div>
@@ -31,7 +31,7 @@
     <div class="card-panel red-text center-align">
       {{gem.name}} might be dirty
     </div>
-    {% endif %}
+    {% endif %} -->
     <table class="striped">
       <thead>
         <tr>
@@ -93,9 +93,6 @@
   {% endif %}
 </div>
 </div>
-
-
-
 
 <script>
   var dateEl = document.getElementById("id_date");
